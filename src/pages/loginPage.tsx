@@ -122,7 +122,7 @@ export default function SignupPage() {
                 </div>
                 <div className="flex justify-center">
                   <Button className=" text-white font-bold px-4 rounded" type="submit" disabled={isLoading}>
-                    {isLoading ? 'Login Inn' : 'Login'}
+                    Login
                   </Button>
                 </div>
                 {error && <span className="flex justify-center text-red-500 ">{error}</span>}
