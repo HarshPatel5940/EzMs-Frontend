@@ -5,14 +5,13 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { ArrowLeftCircleIcon } from 'lucide-react';
-import { useToast } from '@/components/ui/use-toast';
-import server, { cn } from '@/lib/utils';
+import server from '@/lib/utils';
 import { AxiosError } from 'axios';
+import { toast } from 'sonner';
 import { setCookie } from 'nookies';
 
 export default function SignupPage() {
   const navigate = useNavigate();
-  const { toast } = useToast();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setErrors] = useState<string>('');
@@ -43,6 +42,7 @@ export default function SignupPage() {
       });
 
       if (res.status !== 200) {
+        toast.warning('Unexpected Response from Server');
         setErrors('Unexpected Response from Server, response code: ' + res.status);
         return;
       }
@@ -52,17 +52,13 @@ export default function SignupPage() {
         path: '/',
       });
 
-      toast({
-        title: 'Logged In Successfully',
-        type: 'foreground',
-        className: cn('top-0 right-0 flex fixed md:max-w-[420px] md:top-20 md:right-4'),
-      });
-      navigate('/'); // TODO: Navigate to dashboard page
+      toast.success('Logged In Successfully');
+      navigate('/dashboard');
     } catch (error) {
       if (error instanceof AxiosError) {
-        const err = error.response?.data.message.issues[0].message || error.message;
+        const err = error.response?.data.message || 'Something went wrong';
         setErrors(err);
-
+        console.error(err);
         return;
       }
       setErrors('Something went wrong');
