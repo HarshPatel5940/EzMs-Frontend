@@ -14,6 +14,7 @@ export default function SignupPage() {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [submitDisabled, setSubmitDisabled] = useState(true);
   const [error, setErrors] = useState<string>('');
   const [isLoading, setIsLoading] = useState(false);
 
@@ -23,6 +24,11 @@ export default function SignupPage() {
 
   const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(event.target.value);
+    if (event.target.value.length > 5) {
+      setSubmitDisabled(false);
+    } else {
+      setSubmitDisabled(true);
+    }
   };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -48,7 +54,7 @@ export default function SignupPage() {
       }
 
       setCookie(null, 'userToken', res.data.accessToken, {
-        maxAge: 10 * 24 * 60 * 60,
+        maxAge: 3 * 24 * 60 * 60,
         path: '/',
       });
 
@@ -58,7 +64,6 @@ export default function SignupPage() {
       if (error instanceof AxiosError) {
         const err = error.response?.data.message || 'Something went wrong';
         setErrors(err);
-        console.error(err);
         return;
       }
       setErrors('Something went wrong');
@@ -117,7 +122,11 @@ export default function SignupPage() {
                   </div>
                 </div>
                 <div className="flex justify-center">
-                  <Button className=" text-white font-bold px-4 rounded" type="submit" disabled={isLoading}>
+                  <Button
+                    className=" text-white font-bold px-4 rounded"
+                    type="submit"
+                    disabled={isLoading || submitDisabled}
+                  >
                     Login
                   </Button>
                 </div>
