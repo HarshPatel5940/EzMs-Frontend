@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Navbar from '@/components/navbar';
 import { Button } from '@/components/ui/button';
@@ -8,15 +8,22 @@ import { ArrowLeftCircleIcon } from 'lucide-react';
 import server from '@/lib/utils';
 import { AxiosError } from 'axios';
 import { toast } from 'sonner';
-import { setCookie } from 'nookies';
+import { parseCookies, setCookie } from 'nookies';
 
-export default function SignupPage() {
+export default function LoginPage() {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [submitDisabled, setSubmitDisabled] = useState(true);
   const [error, setErrors] = useState<string>('');
   const [isLoading, setIsLoading] = useState(false);
+  const [token] = useState<string | null>(parseCookies().userToken || null);
+
+  useEffect(() => {
+    if (token) {
+      navigate('/dashboard');
+    }
+  }, [token]);
 
   const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
