@@ -6,12 +6,15 @@ import { AxiosError } from 'axios';
 import { toast } from 'sonner';
 import { destroyCookie, parseCookies } from 'nookies';
 import ProjectCard from '@/components/projectCard';
+import { Button } from '@/components/ui/button';
+import { PlusSquareIcon } from 'lucide-react';
 
 export default function DashboardPage() {
   const navigate = useNavigate();
   const [projectCards, setProjectCards] = useState<React.ReactNode[]>([]);
   const [projects, setProjects] = useState<Array<object>>([]);
   const [token] = useState<string | null>(parseCookies().userToken || null);
+  const [isAdmin, setIsAdmin] = useState<boolean>(false);
 
   useEffect(() => {
     if (!token) {
@@ -20,6 +23,7 @@ export default function DashboardPage() {
       return;
     }
     fetchProjects();
+    checkAdmin();
   }, []);
 
   useEffect(() => {
@@ -66,6 +70,17 @@ export default function DashboardPage() {
     }
   };
 
+  const checkAdmin = async () => {
+    const res = await server.get('/api/admin/check', {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    if (res.status === 200) {
+      setIsAdmin(true);
+    }
+  };
+
   function handleProjects() {
     let projectCards: React.ReactNode[] = [];
 
@@ -86,7 +101,7 @@ export default function DashboardPage() {
 
   function displayProjectCards(): React.ReactNode {
     return (
-      <>
+      <div className="flex flex-col items-center">
         {projectCards.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 p-5">{projectCards}</div>
         ) : (
@@ -94,15 +109,21 @@ export default function DashboardPage() {
             <div className="text-4xl opacity-50">No Projects Created Yet!</div>
           </div>
         )}
-      </>
+      </div>
     );
   }
 
   return (
     <div className="flex flex-col min-h-screen">
       <Navbar text="Your Projects" />
-      <section className="flex flex-col items-center h-screen bg-gray-100 dark:bg-gray-900" id="hero">
-        <h1 className="text-3xl font-bold text-center pt-3">Projects</h1>
+      <section className="h-screen bg-gray-100 dark:bg-gray-900" id="hero">
+        <div className="flex justify-between">
+          <h1 className="text-3xl font-bold text-center pt-3">Projects</h1>
+          {isAdmin ? (
+            // todo: open a create project modal
+            <PlusSquareIcon />
+          ) : null}
+        </div>
         {displayProjectCards()}
       </section>
 

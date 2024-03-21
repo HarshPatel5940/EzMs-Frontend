@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { Card, CardContent, CardFooter, CardHeader } from './ui/card';
 
 export interface ProjectCardProps {
@@ -29,16 +30,18 @@ export default function ProjectCard(props: ProjectCardProps) {
   }
 
   return (
-    <Card>
-      <CardHeader className="text-xl font-bold">{props.projectName}</CardHeader>
-      <CardContent className="text-l font-semibold text-gray-800">
-        Slug: {props.slug}
-        <br />
-        Description:{props.projectDesc}
-        <br />
-        Data Count: {props.projectData}
-      </CardContent>
-      <CardFooter className="text-sm text-">Last Updated: {LastUpatedAtFormatter(props.updatedAt)}</CardFooter>
-    </Card>
+    <Link to={`/project/${props.slug}`} className="w-full">
+      <Card>
+        <CardHeader className="text-xl font-bold">{props.projectName}</CardHeader>
+        <CardContent className="text-l font-semibold text-gray-800">
+          Slug: {props.slug}
+          <br />
+          Description:{props.projectDesc}
+          <br />
+          Data Count: {props.projectData}
+        </CardContent>
+        <CardFooter className="text-sm text-">Last Updated: {LastUpatedAtFormatter(props.updatedAt)}</CardFooter>
+      </Card>
+    </Link>
   );
 }
