@@ -89,6 +89,7 @@ export default function DashboardPage() {
   function handleProjects() {
     let projectCards: React.ReactNode[] = [];
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     projectCards = projects.map((project: any) => {
       return (
         <ProjectCard
@@ -122,13 +123,14 @@ export default function DashboardPage() {
     <div className="flex flex-col min-h-screen">
       <MyNavbar text="Your Projects" />
       {isVerified && (
-        <main className="flex min-h-[calc(100vh_-_theme(spacing.16))] bg-gray-100/40 flex-1 flex-col gap-4 p-4 md:gap-8 md:p-10 dark:bg-gray-800/40">
+        <main className="flex min-h-[calc(100vh_-_theme(spacing.16))] bg-gray-200/40 flex-1 flex-col gap-4 p-4 md:gap-8 md:p-10 dark:bg-gray-800/40">
           <div className="max-w-6xl w-full mx-auto flex items-center gap-4">
-            <Input className="bg-white dark:bg-gray-950" placeholder="Search projects..." />
+            {/* //todo: implement search functionality */}
+            <Input className="shadow-md bg-white dark:bg-gray-950" placeholder="Search projects..." />
             <Button className="sr-only" type="submit">
               Submit
             </Button>
-            {isAdmin && <Button>Add New</Button>}
+            {isAdmin && <Button> Add New</Button>}
           </div>
           {displayProjectCards()}
         </main>

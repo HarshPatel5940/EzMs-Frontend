@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card';
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from './ui/dropdown-menu';
-import { HomeIcon, MoreHorizontalIcon, GitBranchIcon, Clock5Icon, PackageIcon } from 'lucide-react';
+import { HomeIcon, MoreHorizontalIcon, Clock5Icon, PackageIcon } from 'lucide-react';
 import { Button } from './ui/button';
 
 export interface ProjectCardProps {
