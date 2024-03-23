@@ -1,4 +1,4 @@
-import MyNavbar from '../components/Navbar';
+import MyNavbar from '../components/Navbar1';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 
