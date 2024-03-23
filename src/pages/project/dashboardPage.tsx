@@ -8,6 +8,7 @@ import ProjectCard from '@/components/ProjectCard';
 import MyNavbar from '@/components/Navbar';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
+import CreateProjectDialog from '@/components/CreateProjectDialog';
 export default function DashboardPage() {
   const navigate = useNavigate();
   const [projectCards, setProjectCards] = useState<React.ReactNode[]>([]);
@@ -130,7 +131,7 @@ export default function DashboardPage() {
             <Button className="sr-only" type="submit">
               Submit
             </Button>
-            {isAdmin && <Button> Add New</Button>}
+            {isAdmin && <CreateProjectDialog />}
           </div>
           {displayProjectCards()}
         </main>
