@@ -1,20 +1,20 @@
-import Navbar from '@/components/navbar';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import server from '@/lib/utils';
 import { AxiosError } from 'axios';
 import { toast } from 'sonner';
 import { destroyCookie, parseCookies } from 'nookies';
-import ProjectCard from '@/components/projectCard';
+import ProjectCard from '@/components/ProjectCard';
+import MyNavbar from '@/components/Navbar';
+import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { PlusSquareIcon } from 'lucide-react';
-
 export default function DashboardPage() {
   const navigate = useNavigate();
   const [projectCards, setProjectCards] = useState<React.ReactNode[]>([]);
   const [projects, setProjects] = useState<Array<object>>([]);
   const [token] = useState<string | null>(parseCookies().userToken || null);
   const [isAdmin, setIsAdmin] = useState<boolean>(false);
+  const [isVerified, setIsVerified] = useState<boolean>(false);
 
   useEffect(() => {
     if (!token) {
@@ -45,6 +45,7 @@ export default function DashboardPage() {
       }
 
       const data = res.data;
+      setIsVerified(true);
       setProjects(data);
     } catch (error) {
       if (error instanceof AxiosError) {
@@ -55,6 +56,10 @@ export default function DashboardPage() {
           return;
         }
         if (error.response?.status === 401) {
+          toast.warning('Please Re-Login. Token Expired!');
+          return;
+        }
+        if (error.response?.status === 403) {
           toast.warning('Contact Admin! Unverified!', {
             description: 'Your account is not verified yet',
           });
@@ -103,7 +108,7 @@ export default function DashboardPage() {
     return (
       <div className="flex flex-col items-center">
         {projectCards.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 p-5">{projectCards}</div>
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 max-w-6xl w-full mx-auto">{projectCards}</div>
         ) : (
           <div className="text-center space-y-2">
             <div className="text-4xl opacity-50">No Projects Created Yet!</div>
@@ -115,18 +120,19 @@ export default function DashboardPage() {
 
   return (
     <div className="flex flex-col min-h-screen">
-      <Navbar text="Your Projects" />
-      <section className="h-screen bg-gray-100 dark:bg-gray-900" id="hero">
-        <div className="flex justify-between">
-          <h1 className="text-3xl font-bold text-center pt-3">Projects</h1>
-          {isAdmin ? (
-            // todo: open a create project modal
-            <PlusSquareIcon />
-          ) : null}
-        </div>
-        {displayProjectCards()}
-      </section>
-
+      <MyNavbar text="Your Projects" />
+      {isVerified && (
+        <main className="flex min-h-[calc(100vh_-_theme(spacing.16))] bg-gray-100/40 flex-1 flex-col gap-4 p-4 md:gap-8 md:p-10 dark:bg-gray-800/40">
+          <div className="max-w-6xl w-full mx-auto flex items-center gap-4">
+            <Input className="bg-white dark:bg-gray-950" placeholder="Search projects..." />
+            <Button className="sr-only" type="submit">
+              Submit
+            </Button>
+            {isAdmin && <Button>Add New</Button>}
+          </div>
+          {displayProjectCards()}
+        </main>
+      )}
       <footer className="p-5 text-center bg-white dark:bg-gray-800">
         <p className="text-gray-600 dark:text-gray-400">© 2023 by HarshPatel5940. All rights reserved.</p>
       </footer>

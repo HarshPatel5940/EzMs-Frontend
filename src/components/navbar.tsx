@@ -6,14 +6,14 @@ interface NavbarProps {
   showLoginButton?: boolean;
 }
 // todo: remake navbar with breadcrumbs and different way
-export default function Navbar({ text, showLoginButton }: NavbarProps) {
+export default function MyNavbar({ text, showLoginButton }: NavbarProps) {
   const navigate = useNavigate();
   if (text === undefined) text = '';
   if (showLoginButton === undefined) showLoginButton = false;
 
   const handleLogout = () => {
+    navigate('/login');
     destroyCookie(null, 'userToken');
-    navigate('/');
   };
 
   return (

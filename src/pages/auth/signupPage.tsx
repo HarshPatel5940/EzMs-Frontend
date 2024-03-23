@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import Navbar from '@/components/navbar';
+import MyNavbar from '@/components/Navbar';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -90,7 +90,7 @@ export default function SignupPage() {
   return (
     <div className="flex flex-col min-h-screen">
       <div>
-        <Navbar />
+        <MyNavbar />
       </div>
 
       <div className="flex flex-col min-h-screen bg-gray-100 justify-center">

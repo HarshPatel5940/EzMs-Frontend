@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import Navbar from '@/components/navbar';
+import MyNavbar from '@/components/Navbar';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -8,7 +8,7 @@ import { ArrowLeftCircleIcon } from 'lucide-react';
 import server from '@/lib/utils';
 import { AxiosError } from 'axios';
 import { toast } from 'sonner';
-import { parseCookies, setCookie } from 'nookies';
+import { setCookie } from 'nookies';
 
 export default function LoginPage() {
   const navigate = useNavigate();
@@ -17,13 +17,6 @@ export default function LoginPage() {
   const [submitDisabled, setSubmitDisabled] = useState(true);
   const [error, setErrors] = useState<string>('');
   const [isLoading, setIsLoading] = useState(false);
-  const [token] = useState<string | null>(parseCookies().userToken || null);
-
-  useEffect(() => {
-    if (token) {
-      navigate('/dashboard');
-    }
-  }, [token]);
 
   const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
@@ -82,7 +75,7 @@ export default function LoginPage() {
   return (
     <div className="flex flex-col min-h-screen">
       <div>
-        <Navbar />
+        <MyNavbar showLoginButton={true} />
       </div>
 
       <div className="flex flex-col min-h-screen bg-gray-100 justify-center">

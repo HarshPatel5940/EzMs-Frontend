@@ -1,5 +1,8 @@
 import { Link } from 'react-router-dom';
-import { Card, CardContent, CardFooter, CardHeader } from './ui/card';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card';
+import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from './ui/dropdown-menu';
+import { HomeIcon, MoreHorizontalIcon, GitBranchIcon, Clock5Icon, PackageIcon } from 'lucide-react';
+import { Button } from './ui/button';
 
 export interface ProjectCardProps {
   slug: string;
@@ -30,17 +33,40 @@ export default function ProjectCard(props: ProjectCardProps) {
   }
 
   return (
-    <Link to={`/project/${props.slug}`} className="w-full">
+    <Link to={`/project/${props.slug}`}>
       <Card>
-        <CardHeader className="text-xl font-bold">{props.projectName}</CardHeader>
-        <CardContent className="text-l font-semibold text-gray-800">
-          Slug: {props.slug}
-          <br />
-          Description:{props.projectDesc}
-          <br />
-          Data Count: {props.projectData}
+        <CardHeader className="flex flex-row items-center gap-4">
+          <HomeIcon className="w-8 h-8" />
+          <div className="grid gap-1">
+            <CardTitle>{props.projectName}</CardTitle>
+            <CardDescription>{props.projectDesc}</CardDescription>
+          </div>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button className="ml-auto" size="icon" variant="ghost">
+                <MoreHorizontalIcon className="w-4 h-4" />
+                <span className="sr-only">Toggle menu</span>
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              {/* // todo: redirect to respective project stuff */}
+              <DropdownMenuItem>View Project</DropdownMenuItem>
+              <DropdownMenuItem>View Settings</DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </CardHeader>
+        <CardContent className="grid gap-2">
+          <div className="flex items-center gap-4 text-sm">
+            <div className="flex items-center gap-1">
+              <Clock5Icon className="w-4 h-4" />
+              <span className="text-gray-500 dark:text-gray-400">{LastUpatedAtFormatter(props.updatedAt)}</span>
+            </div>
+            <div className="flex items-center gap-1">
+              <PackageIcon className="w-4 h-4" />
+              <span className="text-gray-500 dark:text-gray-400">{props.projectData}</span>
+            </div>
+          </div>
         </CardContent>
-        <CardFooter className="text-sm text-">Last Updated: {LastUpatedAtFormatter(props.updatedAt)}</CardFooter>
       </Card>
     </Link>
   );
