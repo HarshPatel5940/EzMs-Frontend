@@ -12,7 +12,7 @@ export interface ProjectCardProps {
   updatedAt: string;
 }
 
-export default function ProjectCard(props: ProjectCardProps) {
+export default function MyProjectCard(props: ProjectCardProps) {
   function LastUpatedAtFormatter(date: string): string {
     const now = new Date();
     const updatedAt = new Date(date);
