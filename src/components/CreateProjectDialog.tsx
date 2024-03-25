@@ -66,9 +66,8 @@ export default function CreateProjectDialog({
         toast.warning(`Unexpected Response Code - ${res.status}`);
         return;
       }
-      let data = res.data;
+      const data = res.data;
       data.ProjectData = [];
-      console.log(data);
       setProjects(prev => [...prev, data]);
     } catch (error) {
       if (error instanceof AxiosError) {

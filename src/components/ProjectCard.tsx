@@ -52,6 +52,7 @@ export default function MyProjectCard(props: ProjectCardProps) {
         toast.error('Unexpected Response from Server');
         return;
       }
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       props.setProjects?.(prev => prev.filter((project: any) => project.slug !== props.slug));
     } catch (error) {
       if (error instanceof AxiosError) {
