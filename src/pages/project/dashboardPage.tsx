@@ -98,8 +98,9 @@ export default function DashboardPage() {
           slug={project.slug}
           projectName={project.projectName}
           projectDesc={project.projectDesc}
-          projectData={project.projectData.length}
+          projectData={project.projectData?.length || 0}
           updatedAt={project.updatedAt}
+          setProjects={setProjects}
         />
       );
     });
@@ -126,12 +127,12 @@ export default function DashboardPage() {
       {isVerified && (
         <main className="flex min-h-[calc(100vh_-_theme(spacing.16))] bg-gray-200/40 flex-1 flex-col gap-4 p-4 md:gap-8 md:p-10 dark:bg-gray-800/40">
           <div className="max-w-6xl w-full mx-auto flex items-center gap-4">
-            {/* //todo: implement search functionality */}
+            {/* // TODO: implement search functionality */}
             <Input className="shadow-md bg-white dark:bg-gray-950" placeholder="Search projects..." />
             <Button className="sr-only" type="submit">
               Submit
             </Button>
-            {isAdmin && <CreateProjectDialog />}
+            {isAdmin && <CreateProjectDialog setProjects={setProjects} />}
           </div>
           {displayProjectCards()}
         </main>

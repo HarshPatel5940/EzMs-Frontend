@@ -8,6 +8,7 @@ import { ArrowLeftCircleIcon } from 'lucide-react';
 import server from '@/lib/utils';
 import { AxiosError } from 'axios';
 import { toast } from 'sonner';
+// todo: remove nookies and store it in session storage
 import { setCookie } from 'nookies';
 
 export default function LoginPage() {
