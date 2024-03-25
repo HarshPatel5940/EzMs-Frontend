@@ -10,12 +10,12 @@ import {
 } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Textarea } from './ui/textarea';
-import { useState } from 'react';
-import { toast } from 'sonner';
-import { parseCookies } from 'nookies';
 import server from '@/lib/utils';
 import { AxiosError } from 'axios';
+import { parseCookies } from 'nookies';
+import { useState } from 'react';
+import { toast } from 'sonner';
+import { Textarea } from '../ui/textarea';
 
 export default function CreateProjectDialog({
   setProjects,
@@ -121,7 +121,7 @@ export default function CreateProjectDialog({
         </div>
         <DialogFooter>
           <Button onClick={handleSubmit} disabled={loading}>
-            Save changes
+            Create Project
           </Button>
         </DialogFooter>
       </DialogContent>
