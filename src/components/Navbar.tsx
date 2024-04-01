@@ -1,6 +1,14 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { destroyCookie } from 'nookies';
 
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbSeparator,
+} from '@/components/ui/breadcrumb';
+
 interface NavbarProps {
   text?: string;
   showLoginButton?: boolean;
@@ -21,9 +29,15 @@ export default function MyNavbar({ text, showLoginButton }: NavbarProps) {
       <div>
         <a href="/" className="flex space-x-4">
           <img src="./vite.svg" className="h-8 w-8 text-gray-800 dark:text-white" alt="" />
-          {/* TODO: Make a own logo and then replace this */}
-          {/* // todo: Add shadCn BreadCrumb */}
-          <span className="text-xl">{text}</span> {/* Display the user inputted text near the logo */}
+          <Breadcrumb>
+            <BreadcrumbList>
+              <BreadcrumbItem>
+                <BreadcrumbLink href="/">Home</BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              {/* // TODO: Add a way to automatically build this part based on the param input */}
+            </BreadcrumbList>
+          </Breadcrumb>
         </a>
       </div>
       <nav className="space-x-4 text-xl">
