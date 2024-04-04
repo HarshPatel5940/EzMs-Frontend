@@ -5,7 +5,6 @@ import {
   BreadcrumbLink,
   BreadcrumbItem,
   BreadcrumbSeparator,
-  BreadcrumbPage,
   BreadcrumbList,
   Breadcrumb,
 } from '@/components/ui/breadcrumb';
@@ -33,11 +32,10 @@ export default function MyNavbar({ projectName }: NavbarProps) {
   };
 
   const handleBreadcrumb = () => {
-    const pathUrl = window.location.pathname.split('/')[1];
-    console.log(pathUrl);
+    const pathUrl = window.location.pathname.split('/');
     const list: ReactNode[] = [];
 
-    if (pathUrl === 'dashboard') {
+    if (pathUrl[1] === 'dashboard') {
       list.push(
         <BreadcrumbItem>
           <BreadcrumbLink
@@ -54,9 +52,12 @@ export default function MyNavbar({ projectName }: NavbarProps) {
       list.push(
         <BreadcrumbSeparator className="text-gray-500" />,
         <BreadcrumbItem>
-          <BreadcrumbPage className="text-gray-600 hover:text-gray-800 dark:text-white dark:hover:text-gray-300 hover:font-bold">
+          <BreadcrumbLink
+            href={`/dashboard/${pathUrl[2]}`}
+            className="text-gray-600 hover:text-gray-800 dark:text-white dark:hover:text-gray-300 hover:font-bold"
+          >
             {projectName}
-          </BreadcrumbPage>
+          </BreadcrumbLink>
         </BreadcrumbItem>,
       );
     }
