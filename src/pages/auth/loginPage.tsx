@@ -60,7 +60,7 @@ export default function LoginPage() {
       });
 
       toast.success('Logged In Successfully');
-      navigate('/dashboard');
+      navigate('/projects');
     } catch (error) {
       if (error instanceof AxiosError) {
         const err = error.response?.data.message || 'Something went wrong';
