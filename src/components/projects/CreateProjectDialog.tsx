@@ -53,7 +53,7 @@ export default function CreateProjectDialog({
         '/api/project/new',
         {
           projectName,
-          desc: projectDesc,
+          projectDesc,
         },
         {
           headers: {

@@ -39,6 +39,7 @@ export default function DeleteProjectDialog({
       document.getElementById('projectName')?.classList.remove(...['border-red-500', 'border-2']);
     }
   };
+  // TODO: handle delete when someone types "delete" and clicks enter
 
   const handleSubmit = async () => {
     setLoading(true);
