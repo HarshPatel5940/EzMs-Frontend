@@ -43,8 +43,7 @@ export default function MyProjectDataCard(props: ProjectData) {
       <CardFooter className="flex flex-col gap-2">
         <div className="flex justify-around text-center w-full rounded-lg gap-2">
           <Button
-            variant={'secondary'}
-            className="w-full bg-green-600 bg-opacity-90"
+            className="w-full"
             onClick={() => {
               navigator.clipboard.writeText(props.imageUrl);
               toast.info('Copied to clipboard');
@@ -52,9 +51,7 @@ export default function MyProjectDataCard(props: ProjectData) {
           >
             Copy 🔗
           </Button>
-          <Button variant={'secondary'} className="w-full bg-blue-600 bg-opacity-90">
-            Edit
-          </Button>
+          <Button className="w-full bg-blue-600 hover:bg-blue-500 bg-opacity-90">Edit</Button>
           <Button variant={'destructive'} className="w-full">
             Delete
           </Button>
