@@ -1,5 +1,7 @@
 import { LinkIcon } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from './ui/card';
+import { Button } from './ui/button';
+import { toast } from 'sonner';
 
 export interface ProjectData {
   id: string;
@@ -32,14 +34,30 @@ export default function MyProjectDataCard(props: ProjectData) {
             {props.url}
           </a>
         </div>
+        <div>
+          <div>Created At: {DateFormatter(props.createdAt)}</div>
+          <div>Updated At: {DateFormatter(props.updatedAt)}</div>
+        </div>
       </CardContent>
 
-      <CardFooter>
-        <div className="flex justify-between">
-          <div className="flex-col">
-            <div>Created At: {DateFormatter(props.createdAt)}</div>
-            <div>Updated At: {DateFormatter(props.updatedAt)}</div>
-          </div>
+      <CardFooter className="flex flex-col gap-2">
+        <div className="flex justify-around text-center w-full rounded-lg gap-2">
+          <Button
+            variant={'secondary'}
+            className="w-full bg-green-600 bg-opacity-90"
+            onClick={() => {
+              navigator.clipboard.writeText(props.imageUrl);
+              toast.info('Copied to clipboard');
+            }}
+          >
+            Copy 🔗
+          </Button>
+          <Button variant={'secondary'} className="w-full bg-blue-600 bg-opacity-90">
+            Edit
+          </Button>
+          <Button variant={'destructive'} className="w-full">
+            Delete
+          </Button>
         </div>
       </CardFooter>
     </Card>
