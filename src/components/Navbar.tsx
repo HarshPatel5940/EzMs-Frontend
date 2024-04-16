@@ -53,7 +53,7 @@ export default function MyNavbar({ projectName }: NavbarProps) {
         <BreadcrumbSeparator className="text-gray-500" />,
         <BreadcrumbItem>
           <BreadcrumbLink
-            href={`/projects/${pathUrl[2]}`}
+            href={`/project/${pathUrl[2]}`}
             className="text-gray-600 hover:text-gray-800 dark:text-white dark:hover:text-gray-300 hover:font-bold"
           >
             {projectName}
