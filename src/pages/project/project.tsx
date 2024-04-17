@@ -101,7 +101,7 @@ export default function ProjectsPage() {
     if (!project) {
       return;
     }
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
     projectCards = projectData.map((project: ProjectData) => {
       return (
         <ProjectDataCard

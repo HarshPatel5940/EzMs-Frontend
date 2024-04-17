@@ -66,7 +66,7 @@ export default function DeleteProjectDataDialog({
         toast.error('Unexpected Response from Server');
         return;
       }
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
       setProjectData?.(prev => prev.filter((projectData: ProjectData) => projectData.id !== imageId));
     } catch (error) {
       if (error instanceof AxiosError) {
