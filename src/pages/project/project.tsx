@@ -1,4 +1,5 @@
 import MyNavbar from '@/components/Navbar';
+import AddImageDialog from '@/components/projectData/AddImageDialog';
 import ProjectDataCard, { ProjectData } from '@/components/projectDataCard';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -24,8 +25,8 @@ export default function ProjectsPage() {
   const navigate = useNavigate();
   const [projectCards, setProjectCards] = useState<React.ReactNode[]>([]);
   const [project, setProject] = useState<Project | null>(null);
+  const [projectData, setProjectData] = useState<ProjectData[]>([]);
   const [token] = useState<string | null>(parseCookies().userToken || null);
-  const [isAdmin, setIsAdmin] = useState<boolean>(false);
   const [isVerified, setIsVerified] = useState<boolean>(false);
   const projectId = useParams().projectId;
 
@@ -36,12 +37,19 @@ export default function ProjectsPage() {
       return;
     }
     fetchProjectData();
-    checkAdmin();
   }, []);
 
   useEffect(() => {
-    handleProjectData();
+    if (!project) return;
+
+    setProjectData(project.projectData);
   }, [project]);
+
+  useEffect(() => {
+    handleProjectData();
+  }, [projectData]);
+
+  useEffect(() => {}, [projectCards]);
 
   const fetchProjectData = async () => {
     try {
@@ -88,24 +96,13 @@ export default function ProjectsPage() {
     }
   };
 
-  const checkAdmin = async () => {
-    const res = await server.get('/api/admin/check', {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    if (res.status === 200) {
-      setIsAdmin(true);
-    }
-  };
-
   function handleProjectData() {
     let projectCards: React.ReactNode[] = [];
     if (!project) {
       return;
     }
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    projectCards = project.projectData.map((project: ProjectData) => {
+    projectCards = projectData.map((project: ProjectData) => {
       return (
         <ProjectDataCard
           id={project.id}
@@ -117,6 +114,7 @@ export default function ProjectsPage() {
           createdAt={project.createdAt}
           updatedAt={project.updatedAt}
           projectId={project.projectId}
+          setProjectData={setProjectData}
         />
       );
     });
@@ -148,8 +146,7 @@ export default function ProjectsPage() {
             <Button className="sr-only" type="submit">
               Submit
             </Button>
-            {/* // TODO: resolve the below */}
-            {/* {isAdmin && <CreateProjectDataDialog setProjects={setProject} />} */}
+            <AddImageDialog projectSlug={projectId || ''} setProjectData={setProjectData} />
           </div>
           {displayDataTable()}
         </main>

@@ -2,6 +2,7 @@ import { LinkIcon } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from './ui/card';
 import { Button } from './ui/button';
 import { toast } from 'sonner';
+import DeleteImageDialog from '@/components/projectData/DeleteImageDialog';
 
 export interface ProjectData {
   id: string;
@@ -12,6 +13,7 @@ export interface ProjectData {
   url: string;
   createdAt: string;
   updatedAt: string;
+  setProjectData: React.Dispatch<React.SetStateAction<ProjectData[]>>;
 }
 
 export default function MyProjectDataCard(props: ProjectData) {
@@ -28,11 +30,15 @@ export default function MyProjectDataCard(props: ProjectData) {
       <CardContent className="space-y-1">
         <CardTitle>{props.title}</CardTitle>
         <CardDescription>{props.description ? props.description : 'No Descrpition Provided'}</CardDescription>
-        <div className="flex  align-middle">
+        <div className="flex align-middle">
           <LinkIcon size={21} className="pt-1" />
-          <a className="text-blue-500" href={props.url}>
-            {props.url}
-          </a>
+          {props.url ? (
+            <a className="text-blue-500" href={props.url}>
+              {props.url}
+            </a>
+          ) : (
+            <CardDescription>No Link Provided</CardDescription>
+          )}
         </div>
         <div>
           <div>Created At: {DateFormatter(props.createdAt)}</div>
@@ -52,9 +58,11 @@ export default function MyProjectDataCard(props: ProjectData) {
             Copy 🔗
           </Button>
           <Button className="w-full bg-blue-600 hover:bg-blue-500 bg-opacity-90">Edit</Button>
-          <Button variant={'destructive'} className="w-full">
-            Delete
-          </Button>
+          {DeleteImageDialog({
+            imageId: props.id,
+            projectSlug: props.projectId,
+            setProjectData: props.setProjectData,
+          })}
         </div>
       </CardFooter>
     </Card>
