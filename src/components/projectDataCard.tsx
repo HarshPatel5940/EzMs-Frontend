@@ -57,7 +57,15 @@ export default function MyProjectDataCard(props: ProjectData) {
           >
             Copy 🔗
           </Button>
-          <Button className="w-full bg-blue-600 hover:bg-blue-500 bg-opacity-90">Edit</Button>
+          {/* // TODO: create update image dialog */}
+          <Button
+            className="w-full bg-blue-600 hover:bg-blue-500 bg-opacity-90"
+            onClick={() => {
+              toast.info('To Be Implemented!!');
+            }}
+          >
+            Edit
+          </Button>
           {DeleteImageDialog({
             imageId: props.id,
             projectSlug: props.projectId,
