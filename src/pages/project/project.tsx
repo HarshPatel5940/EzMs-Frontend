@@ -46,13 +46,11 @@ export default function ProjectsPage() {
     if (!project) return;
 
     setProjectData(project.projectData);
-    
   }, [project]);
 
   useEffect(() => {
     handleProjectData(projectData);
   }, [projectData]);
-
 
   const fetchProjectData = async () => {
     try {

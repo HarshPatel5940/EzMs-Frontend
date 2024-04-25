@@ -98,8 +98,7 @@ export default function DashboardPage() {
       }
 
       console.error('Unexpected Response from Server', error);
-    } 
-
+    }
   };
 
   const checkAdmin = async () => {
@@ -113,7 +112,7 @@ export default function DashboardPage() {
     }
   };
 
-  function handleProjects(projects: Project[],  debouncedSearch?: string) {
+  function handleProjects(projects: Project[], debouncedSearch?: string) {
     let projectCards: React.ReactNode[] = [];
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
