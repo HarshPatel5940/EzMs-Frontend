@@ -49,7 +49,6 @@ export default function ProjectsPage() {
   }, [project]);
 
   useEffect(() => {
-    console.log('update notice');
     handleProjectData(projectData);
   }, [projectData]);
 
