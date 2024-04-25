@@ -1,5 +1,12 @@
 import { LinkIcon } from 'lucide-react';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from './ui/card';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from './ui/card';
 import { Button } from './ui/button';
 import { toast } from 'sonner';
 import DeleteImageDialog from '@/components/projectData/DeleteImageDialog';
@@ -19,17 +26,23 @@ export interface ProjectData {
 export default function MyProjectDataCard(props: ProjectData) {
   function DateFormatter(date: string): string {
     const d = new Date(date);
-    return d.toLocaleTimeString() + ' ' + d.toLocaleDateString();
+    return `${d.toLocaleTimeString()} ${d.toLocaleDateString()}`;
   }
 
   return (
     <Card>
       <CardHeader>
-        <img src={props.imageUrl} alt="project" className="w-full h-64 object-cover" />
+        <img
+          src={props.imageUrl}
+          alt="project"
+          className="w-full h-64 object-cover"
+        />
       </CardHeader>
       <CardContent className="space-y-1">
         <CardTitle>{props.title}</CardTitle>
-        <CardDescription>{props.description ? props.description : 'No Descrpition Provided'}</CardDescription>
+        <CardDescription>
+          {props.description ? props.description : 'No Descrpition Provided'}
+        </CardDescription>
         <div className="flex align-middle">
           <LinkIcon size={21} className="pt-1" />
           {props.url ? (

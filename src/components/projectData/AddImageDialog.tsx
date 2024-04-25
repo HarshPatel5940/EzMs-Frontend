@@ -11,12 +11,12 @@ import {
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import server from '@/lib/utils';
-import { AxiosError, AxiosResponse } from 'axios';
+import { AxiosError, type AxiosResponse } from 'axios';
 import { parseCookies } from 'nookies';
-import { ChangeEvent, useState } from 'react';
+import { type ChangeEvent, useState } from 'react';
 import { toast } from 'sonner';
 import { Textarea } from '../ui/textarea';
-import { ProjectData } from '../projectDataCard';
+import type { ProjectData } from '../projectDataCard';
 
 export default function CreateProjectDataDialog({
   projectSlug,
@@ -35,7 +35,9 @@ export default function CreateProjectDataDialog({
 
   const handleImageName = (e: React.ChangeEvent<HTMLInputElement>) => {
     setImageTitle(e.target.value);
-    document.getElementById('imageTitle')?.classList.remove(...['border-red-500', 'border-2']);
+    document
+      .getElementById('imageTitle')
+      ?.classList.remove(...['border-red-500', 'border-2']);
   };
   const handleImageDesc = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setImageDesc(e.target.value);
@@ -59,7 +61,9 @@ export default function CreateProjectDataDialog({
       setLoading(false);
       toast.warning('Image name must be at least 4 characters long');
       document.getElementById('imageTitle')?.focus();
-      document.getElementById('imageTitle')?.classList.add(...['border-red-500', 'border-2']);
+      document
+        .getElementById('imageTitle')
+        ?.classList.add(...['border-red-500', 'border-2']);
       return;
     }
 
@@ -80,7 +84,7 @@ export default function CreateProjectDataDialog({
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        },
+        }
       );
 
       if (res.status !== 201) {
@@ -90,13 +94,16 @@ export default function CreateProjectDataDialog({
     } catch (error) {
       if (error instanceof AxiosError) {
         if (error.response?.status === 400) {
-          const res = error.response.data.errors[0].message || 'An error occurred while creating the project';
+          const res =
+            error.response.data.errors[0].message ||
+            'An error occurred while creating the project';
           toast.warning(res);
         }
 
         if (error.response?.status === 409) {
           toast.error('Project with this name already exists', {
-            description: 'Use Different Name OR "Rename Project Later to this name.',
+            description:
+              'Use Different Name OR "Rename Project Later to this name.',
           });
         }
       } else {
@@ -128,7 +135,9 @@ export default function CreateProjectDataDialog({
       <DialogContent className="max-w-[20rem] md:max-w-[28rem]">
         <DialogHeader>
           <DialogTitle>Add An Image</DialogTitle>
-          <DialogDescription>Add a new image which you can easily share and start using.</DialogDescription>
+          <DialogDescription>
+            Add a new image which you can easily share and start using.
+          </DialogDescription>
         </DialogHeader>
         <div className="flex flex-col gap-2">
           <Label htmlFor="name" className="text-left flex">
@@ -145,13 +154,22 @@ export default function CreateProjectDataDialog({
           <Label htmlFor="name" className="text-left">
             Image Description
           </Label>
-          <Textarea id="imageDesc" placeholder="A short description of your image" onChange={handleImageDesc} />
+          <Textarea
+            id="imageDesc"
+            placeholder="A short description of your image"
+            onChange={handleImageDesc}
+          />
         </div>
         <div className="flex flex-col gap-2">
           <Label htmlFor="name" className="text-left flex">
             Upload Image <div className="text-red-600">*</div>
           </Label>
-          <Input id="image-ProjectData" type="file" accept="image/*" onChange={handleFileChange} />
+          <Input
+            id="image-ProjectData"
+            type="file"
+            accept="image/*"
+            onChange={handleFileChange}
+          />
         </div>
         <div className="flex flex-col gap-2">
           <Label htmlFor="name" className="text-left flex">
@@ -166,12 +184,18 @@ export default function CreateProjectDataDialog({
           />
         </div>
         <div className="text-xs text-gray-500 font-bold">
-          Tip: Images are uploaded to quickly use in your frontend apps or share it with others...
+          Tip: Images are uploaded to quickly use in your frontend apps or share
+          it with others...
         </div>
         <DialogFooter>
           <Button
             onClick={handleSubmit}
-            disabled={loading || imageTitle.length < 4 || (imageUrl ? imageUrl.length < 10 : false) || !image}
+            disabled={
+              loading ||
+              imageTitle.length < 4 ||
+              (imageUrl ? imageUrl.length < 10 : false) ||
+              !image
+            }
           >
             Add Image
           </Button>
