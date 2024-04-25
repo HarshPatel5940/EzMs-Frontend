@@ -74,7 +74,7 @@ export default function DeleteProjectDataDialog({
         return;
       }
 
-      setProjectData?.(prev =>
+      setProjectData(prev =>
         prev.filter((projectData: ProjectData) => projectData.id !== imageId)
       );
     } catch (error) {

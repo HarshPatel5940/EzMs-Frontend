@@ -10,6 +10,7 @@ import {
 import { Button } from './ui/button';
 import { toast } from 'sonner';
 import DeleteImageDialog from '@/components/projectData/DeleteImageDialog';
+import UpdateProjectDialog from './projectData/UpdateProjectDataDialog';
 
 export interface ProjectData {
   id: string;
@@ -71,14 +72,9 @@ export default function MyProjectDataCard(props: ProjectData) {
             Copy 🔗
           </Button>
           {/* // TODO: create update image dialog */}
-          <Button
-            className="w-full bg-blue-600 hover:bg-blue-500 bg-opacity-90"
-            onClick={() => {
-              toast.info('To Be Implemented!!');
-            }}
-          >
-            Edit
-          </Button>
+          {UpdateProjectDialog({
+            projectData: props,
+          })}
           {DeleteImageDialog({
             imageId: props.id,
             projectSlug: props.projectId,
