@@ -9,9 +9,7 @@
     "dev": "vite",
     "lint": "biome check .",
     "lint:fix": "biome check . --apply-unsafe",
-    "preview": "vite preview",
-    "format": "prettier --write  \"./src/**/*\"",
-    "format:check": "prettier --check \"./src/**/*\""
+    "preview": "vite preview"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.0.5",
