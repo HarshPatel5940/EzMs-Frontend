@@ -71,10 +71,11 @@ export default function MyProjectDataCard(props: ProjectData) {
           >
             Copy 🔗
           </Button>
-          {/* // TODO: create update image dialog */}
+
           {UpdateProjectDialog({
             projectData: props,
           })}
+
           {DeleteImageDialog({
             imageId: props.id,
             projectSlug: props.projectId,
