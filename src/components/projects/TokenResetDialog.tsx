@@ -72,7 +72,6 @@ export default function ResetProjectToken({
       }
 
       const data = res.data.projectToken;
-      console.log(data);
       setProjectToken(data);
 
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -129,7 +128,7 @@ export default function ResetProjectToken({
             onClick={handleSubmit}
             disabled={loading || isDeleteDisabled}
           >
-            Reset Token
+            Confirm Reset
           </Button>
         </DialogFooter>
       </DialogContent>

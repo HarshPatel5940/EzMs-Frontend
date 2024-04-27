@@ -42,11 +42,7 @@ export default function ManageProjectsPage() {
   }, [token, navigate]);
 
   const handleDisplayToken = (projectToken: string) => {
-    return `**** **** **** **** **** **** **** **** ${projectToken.slice(
-      -7,
-      -1
-    )}
-    `;
+    return `**** **** **** **** **** **** **** **** ${projectToken.slice(-6)}`;
   };
 
   const fetchProjectData = async () => {
@@ -127,11 +123,10 @@ export default function ManageProjectsPage() {
                   <div className="flex gap-2">
                     <Input
                       className="text-black font-semibold"
-                      defaultValue={handleDisplayToken(projectToken)}
+                      value={handleDisplayToken(projectToken)}
                       disabled={true}
                     />
 
-                    {/* // TODO: On token reset the screen is not being updated with latest token */}
                     <Button
                       onClick={() =>
                         navigator.clipboard.writeText(projectToken)
@@ -139,6 +134,7 @@ export default function ManageProjectsPage() {
                     >
                       Copy
                     </Button>
+
                     <ResetProjectToken
                       projectSlug={project?.slug as string}
                       setProjectToken={setProjectToken}
