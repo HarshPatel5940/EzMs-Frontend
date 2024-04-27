@@ -25,7 +25,7 @@ export interface Project {
   updatedAt: string;
 }
 
-export default function ProjectsPage() {
+export default function ManageProjectDataPage() {
   const navigate = useNavigate();
   const [projectCards, setProjectCards] = useState<React.ReactNode[]>([]);
   const [project, setProject] = useState<Project | null>(null);
@@ -143,7 +143,7 @@ export default function ProjectsPage() {
     <div className="flex flex-col w-full">
       <MyNavbar projectName={project?.projectName} />
       <div className="flex flex-row w-full">
-        <SideBar baseUrl={`/api/project/${project?.slug}`} />
+        <SideBar baseUrl={`/project/${project?.slug}`} />
         {isVerified && (
           <main className="flex min-h-screen bg-gray-200/40 flex-1 flex-col gap-4 p-4 md:gap-8 md:p-10 dark:bg-gray-800/40">
             <div className="max-w-6xl w-full mx-auto flex items-center gap-4">
