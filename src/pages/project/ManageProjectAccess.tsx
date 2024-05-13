@@ -275,7 +275,7 @@ export default function ManageProjectAccess() {
 
   return (
     <div className="flex flex-col w-full">
-      <MyNavbar projectName={project?.projectName} />
+      <MyNavbar projectName={project?.projectName} isAdmin={isAdmin} />
       <div className="flex flex-row w-full">
         <SideBar baseUrl={`/project/${project?.slug}`} />
         {isAdmin ? (
@@ -288,7 +288,6 @@ export default function ManageProjectAccess() {
                 </div>
               </div>
               <div className="max-w-6xl w-full flex items-center gap-4">
-                {/* // TODO: implement search functionality */}
                 <Input
                   className="shadow-md bg-white dark:bg-gray-950"
                   onChange={handleSearch}
