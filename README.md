@@ -1,5 +1,5 @@
 <div align="center">
-<h1> EzMs Frontend</h1>
+<h1> EzMs Frontend - Moved to /EzMs Repo</h1>
 <p> A Clean, simple Frontend made to manage the CMS API using React and Typescript</p>
 <p>
 <img src="https://repository-images.githubusercontent.com/733384623/1292b76c-542b-46d1-89fb-0e1840f67e50" alt="EzMs Banner" />
